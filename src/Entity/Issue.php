@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +37,16 @@ class Issue
      * @ORM\Column(type="boolean")
      */
     private $type;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Label", mappedBy="Issue")
+     */
+    private $labels;
+
+    public function __construct()
+    {
+        $this->labels = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -85,6 +97,34 @@ class Issue
     public function setType(bool $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Label[]
+     */
+    public function getLabels(): Collection
+    {
+        return $this->labels;
+    }
+
+    public function addLabel(Label $label): self
+    {
+        if (!$this->labels->contains($label)) {
+            $this->labels[] = $label;
+            $label->addIssue($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLabel(Label $label): self
+    {
+        if ($this->labels->contains($label)) {
+            $this->labels->removeElement($label);
+            $label->removeIssue($this);
+        }
 
         return $this;
     }
