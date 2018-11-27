@@ -59,10 +59,16 @@ class User
      */
     private $notations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Issue", mappedBy="author")
+     */
+    private $issues;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->notations = new ArrayCollection();
+        $this->issues = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -198,6 +204,37 @@ class User
             // set the owning side to null (unless already changed)
             if ($notation->getAuthor() === $this) {
                 $notation->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Issue[]
+     */
+    public function getIssues(): Collection
+    {
+        return $this->issues;
+    }
+
+    public function addIssue(Issue $issue): self
+    {
+        if (!$this->issues->contains($issue)) {
+            $this->issues[] = $issue;
+            $issue->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIssue(Issue $issue): self
+    {
+        if ($this->issues->contains($issue)) {
+            $this->issues->removeElement($issue);
+            // set the owning side to null (unless already changed)
+            if ($issue->getAuthor() === $this) {
+                $issue->setAuthor(null);
             }
         }
 
