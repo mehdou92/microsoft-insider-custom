@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,16 @@ class Label
      * @ORM\Column(type="string", length=7)
      */
     private $color;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Issue", inversedBy="labels")
+     */
+    private $Issue;
+
+    public function __construct()
+    {
+        $this->Issue = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +63,32 @@ class Label
     public function setColor(string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Issue[]
+     */
+    public function getIssue(): Collection
+    {
+        return $this->Issue;
+    }
+
+    public function addIssue(Issue $issue): self
+    {
+        if (!$this->Issue->contains($issue)) {
+            $this->Issue[] = $issue;
+        }
+
+        return $this;
+    }
+
+    public function removeIssue(Issue $issue): self
+    {
+        if ($this->Issue->contains($issue)) {
+            $this->Issue->removeElement($issue);
+        }
 
         return $this;
     }
