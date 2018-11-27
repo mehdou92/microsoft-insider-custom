@@ -43,9 +43,15 @@ class Issue
      */
     private $labels;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Notation", mappedBy="Issue")
+     */
+    private $notations;
+
     public function __construct()
     {
         $this->labels = new ArrayCollection();
+        $this->notations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,6 +130,37 @@ class Issue
         if ($this->labels->contains($label)) {
             $this->labels->removeElement($label);
             $label->removeIssue($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Notation[]
+     */
+    public function getNotations(): Collection
+    {
+        return $this->notations;
+    }
+
+    public function addNotation(Notation $notation): self
+    {
+        if (!$this->notations->contains($notation)) {
+            $this->notations[] = $notation;
+            $notation->setIssue($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotation(Notation $notation): self
+    {
+        if ($this->notations->contains($notation)) {
+            $this->notations->removeElement($notation);
+            // set the owning side to null (unless already changed)
+            if ($notation->getIssue() === $this) {
+                $notation->setIssue(null);
+            }
         }
 
         return $this;
