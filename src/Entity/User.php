@@ -54,9 +54,15 @@ class User
      */
     private $role;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Notation", mappedBy="author", orphanRemoval=true)
+     */
+    private $notations;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->notations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,6 +169,37 @@ class User
     public function setRole(?Role $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Notation[]
+     */
+    public function getNotations(): Collection
+    {
+        return $this->notations;
+    }
+
+    public function addNotation(Notation $notation): self
+    {
+        if (!$this->notations->contains($notation)) {
+            $this->notations[] = $notation;
+            $notation->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotation(Notation $notation): self
+    {
+        if ($this->notations->contains($notation)) {
+            $this->notations->removeElement($notation);
+            // set the owning side to null (unless already changed)
+            if ($notation->getAuthor() === $this) {
+                $notation->setAuthor(null);
+            }
+        }
 
         return $this;
     }
