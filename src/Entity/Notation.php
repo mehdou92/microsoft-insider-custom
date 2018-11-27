@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NotationRepository")
- * @ORM\Table(name="user_account")
  */
 class Notation
 {
