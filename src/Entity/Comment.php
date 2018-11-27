@@ -27,6 +27,12 @@ class Comment
      */
     private $autor;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Issue", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Issue;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +58,18 @@ class Comment
     public function setAutor(?User $autor): self
     {
         $this->autor = $autor;
+
+        return $this;
+    }
+
+    public function getIssue(): ?Issue
+    {
+        return $this->Issue;
+    }
+
+    public function setIssue(?Issue $Issue): self
+    {
+        $this->Issue = $Issue;
 
         return $this;
     }
