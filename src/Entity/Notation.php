@@ -21,6 +21,11 @@ class Notation
      */
     private $number;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Issue", inversedBy="notations")
+     */
+    private $Issue;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +39,18 @@ class Notation
     public function setNumber(int $number): self
     {
         $this->number = $number;
+
+        return $this;
+    }
+
+    public function getIssue(): ?Issue
+    {
+        return $this->Issue;
+    }
+
+    public function setIssue(?Issue $Issue): self
+    {
+        $this->Issue = $Issue;
 
         return $this;
     }
