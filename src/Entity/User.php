@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -21,26 +23,51 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      max = 50,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      max = 50,
+     *      maxMessage = "Your last name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      min = 8,
+     *      minMessage = "Your password must be at least {{ limit }} characters"
+     * )
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      max = 50,
+     *      maxMessage = "Your nick name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $nickname;
 
