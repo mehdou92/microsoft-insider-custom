@@ -18,6 +18,13 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 25,
+     *      max = 500,
+     *      minMessage = "Your comment must be at least 25 characters long",
+     *      maxMessage = "Your comment cannot be longer than 500 characters"
      */
     private $body;
 

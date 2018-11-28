@@ -20,16 +20,27 @@ class Role
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotNull
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 100,
+     *      minMessage = "Your title must be at least 2 characters long",
+     *      maxMessage = "Your title cannot be longer than 100 characters"
      */
     private $title;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotNull
+     * @Assert\Type("boolean")
      */
     private $admin;
 
     /**
      * @ORM\Column(type="string", length=7)
+     * @Assert\Type("string")
+     * @Assert\NotNull
      */
     private $color;
 
