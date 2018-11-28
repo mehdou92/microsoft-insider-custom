@@ -1,0 +1,23 @@
+auto wiring : injection de dépendance dans une fonction.
+    - commande console pour voir les dépendances en auto wireing : php debug:autowiring
+    - Premier élément d'une fonction ex: Request $request
+
+param converter :   (ex: deuxième argument d'une fonction)Report $report) / il récupère les élements de l'objet dans une fonction etc ..
+
+under request : vérifie si ce qu'on a dans le formulaire existe vraiment dans la classe.
+
+persist : prépare la requete et la met en cache, fait que de la création.
+flush : il l'a balance, il l'a joue.
+
+
+Doctrine extension's features :
+
+
+
+- sluggable : permet de génerer les slug.
+- timestampable : permet mettre a jour des entités et cie.
+- Blameable : savoir qui a créer update et cie.
+- loggable : tracking log
+- sortable : gestion de liste
+- softdeleteable : recupération date a effacement
+-
