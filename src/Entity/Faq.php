@@ -18,16 +18,19 @@ class Faq
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message="Veuillez insérer une question !")
      */
     private $question;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Veuillez insérer une réponse !")
      */
     private $answer;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide !")
      */
     private $active;
 
