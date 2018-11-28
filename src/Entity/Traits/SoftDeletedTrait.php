@@ -33,6 +33,7 @@ trait SoftDeletedTrait{
     public function setDeleted(bool $deleted): self
     {
         $this->deleted = $deleted;
+        return $this;
     }
 
 }
