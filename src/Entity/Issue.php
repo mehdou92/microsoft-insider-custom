@@ -20,26 +20,39 @@ class Issue
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message="Please enter a title !")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Please enter a description to your issue !")
+     * @Assert\Length(
+     *      min = 25,
+     *      max = 500,
+     *      minMessage = "Your text must be at least 25 characters long",
+     *      maxMessage = "Your text cannot be longer than 500 characters"
      */
     private $body;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotNull
+     * @Assert\Type("boolean")
      */
     private $active;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotNull
+     * @Assert\Type("boolean")
      */
     private $type;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Label", mappedBy="Issue")
+     * @Assert\Choice(callback={"App\Entity\Labels", "getTitle"})
+     * @Assert\NotBlank(message="Please select a bug or feature !")
      */
     private $labels;
 
@@ -50,12 +63,15 @@ class Issue
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="Issue", orphanRemoval=true)
+     * @Assert\NotBlank(message="Please enter a comment !")
      */
     private $comments;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="issues")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Choice(callback={"App\Entity\User", "getNickname"})
+     * @Assert\NotBlank(message="Please select a user !")
      */
     private $author;
 

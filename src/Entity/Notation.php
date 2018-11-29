@@ -18,17 +18,24 @@ class Notation
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotNull
+     * @Assert\Type("integer", message="The value {{ value }} is not a valid {{ type }}.")
      */
     private $number;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Issue", inversedBy="notations")
+     * @Assert\Choice(callback={"App\Entity\Issue", "getId"})
+     * @Assert\NotBlank(message="Please select a bug or feature !")
      */
     private $Issue;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="notations")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Choice(callback={"App\Entity\User", "getNickname"})
+     * @Assert\NotBlank(message="Please select a user !")
+     *
      */
     private $author;
 

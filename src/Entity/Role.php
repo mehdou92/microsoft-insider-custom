@@ -41,11 +41,18 @@ class Role
      * @ORM\Column(type="string", length=7)
      * @Assert\Type("string")
      * @Assert\NotNull
+     * @Assert\Regex(
+     *     pattern="/\b[0-9A-Fa-f]+\b",
+     *     match=false,
+     *     message="Please enter a color in hexadecimal"
+     * )
      */
     private $color;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="role")
+     * @Assert\Choice(callback={"App\Entity\User", "getNickname"})
+     * @Assert\NotBlank(message="Please select a user !")
      */
     private $users;
 

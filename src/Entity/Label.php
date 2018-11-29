@@ -20,7 +20,7 @@ class Label
 
     /**
      * @ORM\Column(type="string", length=30)
-     * @Assert\NotBlank(message="Veuillez choisir un titre !")
+     * @Assert\NotBlank(message="Please enter a title !")
      */
     private $title;
 
@@ -28,11 +28,11 @@ class Label
     // Attention la regex ne prend pas en compte le '#', il faudra le mettre dans l'input
     /**
      * @ORM\Column(type="string", length=7)
-     * @Assert\NotBlank(message="Veuillez choisir une couleur !")
+     * @Assert\NotBlank(message="This field can not be empty !")
      * @Assert\Regex(
      *     pattern="/\b[0-9A-Fa-f]+\b",
      *     match=false,
-     *     message="Veuillez entrer une couleur en Hexadecimal"
+     *     message="Please enter a color in hexadecimal"
      * )
      */
     private $color;
@@ -40,7 +40,7 @@ class Label
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Issue", inversedBy="labels")
      * @Assert\Choice(callback={"App\Entity\Issue", "getId"})
-     * @Assert\NotBlank(message="Veuillez choisir un bug ou une feature !")
+     * @Assert\NotBlank(message="Please select a bug or feature !")
      */
     private $Issue;
 

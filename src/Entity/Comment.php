@@ -31,12 +31,16 @@ class Comment
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Choice(callback={"App\Entity\User", "getNickname"})
+     * @Assert\NotBlank(message="Please select a user !")
      */
     private $autor;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Issue", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Choice(callback={"App\Entity\Issue", "getId"})
+     * @Assert\NotBlank(message="Please select a bug or feature !")
      */
     private $Issue;
 

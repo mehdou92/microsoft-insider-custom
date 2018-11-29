@@ -18,19 +18,24 @@ class Faq
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank(message="Veuillez insérer une question !")
+     * @Assert\NotBlank(message="Please enter a question !")
      */
     private $question;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Veuillez insérer une réponse !")
+     * @Assert\NotBlank(message="Please enter a answer !")
+     * @Assert\Length(
+     *      min = 25,
+     *      max = 500,
+     *      minMessage = "Your answer must be at least 25 characters long",
+     *      maxMessage = "Your answer cannot be longer than 500 characters"
      */
     private $answer;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank(message="Ce champ ne peut pas être vide !")
+     * @Assert\NotBlank(message="This field can not be empty !")
      */
     private $active;
 
